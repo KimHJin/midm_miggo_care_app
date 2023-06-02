@@ -1,0 +1,15 @@
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/miggo_splash_image.png
+  branding: assets/branding_image.png
+  branding_mode: bottom
+
+  android_12:
+    image: assets/miggo_splash_android12.png
+    icon_background_color: "#FFFFFF"
+    branding: assets/branding_android12.png
+
+
+  android: true
+  ios: true
+  fullscreen: true
