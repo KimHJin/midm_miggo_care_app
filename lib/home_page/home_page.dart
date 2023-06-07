@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:miggo_care/home_page/settings_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../bluetooth/ble_device.dart';
 import '../graph_page/graph_page.dart';
