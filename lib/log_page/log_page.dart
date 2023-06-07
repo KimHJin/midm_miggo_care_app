@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:miggo_care/BloodPressure/BloodPressure.dart';
 import 'package:miggo_care/log_page/components/blood_list_tile.dart';
 import 'package:miggo_care/log_page/components/rounded_toggle_button.dart';
-import 'package:table_calendar/table_calendar.dart';
-import '../bluetooth/ble_device.dart';
 
 class MyLogPage extends StatefulWidget {
-  const MyLogPage({Key? key, required this.bleDevice,}) : super(key: key);
-
-  final BleDevice bleDevice;
+  const MyLogPage({Key? key}) : super(key: key);
 
   @override
   State<MyLogPage> createState() => _MyLogPageState();
@@ -17,19 +14,14 @@ class MyLogPage extends StatefulWidget {
 class _MyLogPageState extends State<MyLogPage> {
 
   final List<bool> _select = <bool>[true, false];
-  late final BleDevice bleDevice;
   List<BloodPressure> bloodList= [];
-
   int toggleSelectIndex = 0;
-
   int itemCount = 5;
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    bleDevice = widget.bleDevice;
   }
 
   @override

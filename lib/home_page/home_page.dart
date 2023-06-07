@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:miggo_care/log_page/log_page.dart';
+
 import '../bluetooth/ble_device.dart';
-import '../graph_page/graph_page.dart';
 import 'chage_device.dart';
 import 'components/menu_bar.dart';
 import 'components/result_screen.dart';
@@ -202,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                                         onTap: (){
                                           Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => GraphPage(bleDevice: _bleDevice,)),
+                                            MaterialPageRoute(builder: (context) => const MyLogPage()),
                                           );
                                         },
                                         child: Container(
