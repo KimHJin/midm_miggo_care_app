@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:miggo_care/connect_page/first_connect_page.dart';
-
-import '../bluetooth/ble_device.dart';
+import 'package:miggo_care/main.dart';
 import 'components/rounded_button.dart';
 
 class TermsPage extends StatefulWidget {
-  const TermsPage({Key? key, required this.bleDevice}) : super(key: key);
-
-  final BleDevice bleDevice;
+  const TermsPage({Key? key,}) : super(key: key);
 
   @override
   State<TermsPage> createState() => _TermsPageState();
 }
 
 class _TermsPageState extends State<TermsPage> {
-
-  late final BleDevice bleDevice;
 
   bool isAllChecked = false;
   bool isFirstChecked = false;
@@ -25,7 +19,6 @@ class _TermsPageState extends State<TermsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    bleDevice = widget.bleDevice;
   }
 
 
@@ -116,10 +109,10 @@ class _TermsPageState extends State<TermsPage> {
             color: const Color.fromRGBO(59, 130, 197, 1.0),
             textColor: Colors.white,
             press: !isAllChecked ? null : () {
-              Navigator.push(
+              Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => FirstConnectPage(bleDevice: bleDevice,)),
-              );
+                MaterialPageRoute(builder: (context) => const Main()),
+                (route) => false);
             },
           ),
           const SizedBox(height: 10.0,),

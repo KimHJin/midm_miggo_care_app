@@ -17,9 +17,17 @@ class _MyProfilePageState extends State<MyProfilePage> {
         iconTheme: const IconThemeData(color: Colors.blue),
         title: const Text("내 정보", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
       ),
-      body: Container(
-        child: Text('혈압계'),
-      ),
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Icon(Icons.person),
+              Text('사용자님'),
+            ],
+          ),
+          Expanded(flex:4, child: Container(color: Colors.blue,)),
+        ],
+      )
     );
   }
 }

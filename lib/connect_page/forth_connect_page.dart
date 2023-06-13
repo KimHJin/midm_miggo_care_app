@@ -157,7 +157,7 @@ class _UserSelectPageState extends State<UserSelectPage> {
             textColor: Colors.white,
             press: () {
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                  builder: (BuildContext context) => HomePage(bleDevice: bleDevice,)),
+                  builder: (BuildContext context) => const HomePage()),
                       (route) => false
               );
             }
