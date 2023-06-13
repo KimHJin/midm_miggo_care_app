@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:miggo_care/BloodPressure/BloodPressure.dart';
+import 'package:miggo_care/_BloodPressure/BloodPressure.dart';
 import 'package:miggo_care/log_page/components/blood_list_tile.dart';
 import 'package:miggo_care/log_page/components/rounded_toggle_button.dart';
 
