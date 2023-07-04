@@ -21,6 +21,7 @@ class _MyLogPageState extends State<MyLogPage> {
   int toggleSelectIndex = 0;
   int itemCount = 5;
   DateTime? _selectDay;
+  DateTime? _focusedDay = DateTime.now();
 
   @override
   void initState() {
@@ -87,7 +88,7 @@ class _MyLogPageState extends State<MyLogPage> {
                       locale: 'ko_KR',
                       firstDay: DateTime.utc(2010, 10, 16),
                       lastDay: DateTime.utc(2030, 3, 14),
-                      focusedDay: DateTime.now(),
+                      focusedDay: _focusedDay!,
 
                       shouldFillViewport: true,
                       headerStyle: HeaderStyle(
@@ -112,6 +113,7 @@ class _MyLogPageState extends State<MyLogPage> {
                       onDaySelected: (selectedDay, focusedDay) {
                         setState(() {
                           _selectDay = selectedDay;
+                          _focusedDay = focusedDay;
                           selectList.clear();
                           for(BloodPressure bp in bloodList) {
                             if(bp.measuredAt.year == _selectDay!.year && bp.measuredAt.month == _selectDay!.month && bp.measuredAt.day == _selectDay!.day) {
