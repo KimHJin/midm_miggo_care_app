@@ -11,7 +11,8 @@ class UserPreferences {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? name = prefs.getString(_kNameKey);
-    String? birthdate = prefs.getString(_kBirthdateKey);
+    String? birthStr = prefs.getString(_kBirthdateKey);
+    DateTime? birthdate = (birthStr != null) ? DateTime.parse(birthStr) : null;
     double? height = prefs.getDouble(_kHeightKey);
     double? weight = prefs.getDouble(_kWeightKey);
     String? gender = prefs.getString(_kGenderKey);
@@ -33,7 +34,7 @@ class UserPreferences {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setString(_kNameKey, userInfo.name);
-    await prefs.setString(_kBirthdateKey, userInfo.birthdate);
+    await prefs.setString(_kBirthdateKey, userInfo.birthdate.toIso8601String());
     await prefs.setDouble(_kHeightKey, userInfo.height);
     await prefs.setDouble(_kWeightKey, userInfo.weight);
     await prefs.setString(_kGenderKey, userInfo.gender);
@@ -48,7 +49,7 @@ class UserPreferences {
 
 class UserInfo {
   final String name;
-  final String birthdate;
+  final DateTime birthdate;
   final double height;
   final double weight;
   final String gender;

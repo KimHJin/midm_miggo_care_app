@@ -14,7 +14,7 @@ class RoundedToggleButton extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return ToggleButtons(
       constraints: BoxConstraints(
-          minWidth : ((size.width - 30)/2),
+          minWidth : ((size.width-40)/2),
           minHeight: 30.0
       ),
       direction: Axis.horizontal,

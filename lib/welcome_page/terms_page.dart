@@ -111,7 +111,7 @@ class _TermsPageState extends State<TermsPage> {
             press: !isAllChecked ? null : () {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const Main()),
+                MaterialPageRoute(builder: (context) => Main(pageIndex: 0,)),
                 (route) => false);
             },
           ),

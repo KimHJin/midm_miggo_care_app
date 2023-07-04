@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:miggo_care/_UserInfo/UserInfo.dart';
+import 'package:miggo_care/bluetooth/ble_device.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:miggo_care/home_page/home_page.dart';
@@ -21,6 +24,18 @@ void main() async {
   bool isNotFirst = false;
 
   sleep(const Duration(seconds: 1));
+
+  await BleDevice.loadDevice().then((device) {
+    BleDevice.device = device;
+  });
+
+  await UserPreferences.getUserInfo().then((value) {
+    if(value != null) {
+     isNotFirst = true;
+    }
+  });
+
+  await initializeDateFormatting();
 
   runApp(MyApp(isNotFirst: isNotFirst,));
 }
@@ -52,15 +67,18 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Welcome to Miggo Care App',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        //scaffoldBackgroundColor: Colors.white,
+        fontFamily: 'NotoSansKR'
       ),
-      home: (isNotFirst != true) ? const WelcomePage() : const Main(),
+      home: (isNotFirst != true) ? const WelcomePage() : const Main(pageIndex: 0,),
     );
   }
 }
 
 class Main extends StatefulWidget {
-  const Main({Key? key}) : super(key: key);
+  const Main({Key? key, required this.pageIndex}) : super(key: key);
+
+  final int pageIndex;
 
   @override
   State<Main> createState() => _MainState();
@@ -69,6 +87,13 @@ class Main extends StatefulWidget {
 class _MainState extends State<Main> {
 
   int _selectIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _selectIndex = widget.pageIndex;
+  }
 
   final List<Widget> _pages= const <Widget>[
     HomePage(),

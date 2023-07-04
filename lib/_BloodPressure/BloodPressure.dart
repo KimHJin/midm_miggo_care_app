@@ -2,14 +2,12 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class BloodPressure {
-  final int? id;
   final int systolic;
   final int diastolic;
   final int pulse;
   final DateTime measuredAt;
 
   BloodPressure({
-    this.id,
     required this.systolic,
     required this.diastolic,
     required this.pulse,
@@ -18,7 +16,6 @@ class BloodPressure {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'systolic': systolic,
       'diastolic': diastolic,
       'pulse': pulse,
@@ -28,7 +25,6 @@ class BloodPressure {
 
   static BloodPressure fromMap(Map<String, dynamic> map) {
     return BloodPressure(
-      id: map['id'],
       systolic: map['systolic'],
       diastolic: map['diastolic'],
       pulse: map['pulse'],
@@ -43,11 +39,10 @@ class BloodPressure {
       onCreate: (Database db, int version) async {
         await db.execute('''
         CREATE TABLE blood_pressure (
-          id INTEGER PRIMARY KEY,
           systolic INTEGER,
           diastolic INTEGER,
           pulse INTEGER,
-          measuredAt TEXT
+          measuredAt TEXT PRIMARY KEY
         )
       ''');
       },
@@ -73,6 +68,62 @@ class BloodPressure {
       return BloodPressure.fromMap(maps[i]);
     });
   }
+
+  static Future<Map<String, double?>> getAverageBloodPressure() async {
+    final List<BloodPressure> bloodPressures = await getBloodPressures();
+
+    if (bloodPressures.isEmpty) {
+      return {
+        'averageSystolic': 0.0,
+        'averageDiastolic': 0.0,
+        'averagePulse': 0.0,
+      };
+    }
+
+    int totalSystolic = 0;
+    int totalDiastolic = 0;
+    int totalPulse = 0;
+
+    bloodPressures.forEach((bloodPressure) {
+      totalSystolic += bloodPressure.systolic;
+      totalDiastolic += bloodPressure.diastolic;
+      totalPulse += bloodPressure.pulse;
+    });
+
+    final double averageSystolic = totalSystolic / bloodPressures.length;
+    final double averageDiastolic = totalDiastolic / bloodPressures.length;
+    final double averagePulse = totalPulse / bloodPressures.length;
+
+    return {
+      'averageSystolic': averageSystolic,
+      'averageDiastolic': averageDiastolic,
+      'averagePulse': averagePulse,
+    };
+  }
+
+  static Future<DateTime?> getLatestMeasuredDate() async {
+    final db = await openDb();
+
+    final List<Map<String, dynamic>> maps = await db.query(
+      'blood_pressure',
+      columns: ['measuredAt'], // measuredAt 필드만 선택
+      orderBy: 'measuredAt DESC',
+      limit: 1,
+    );
+
+    if (maps.isEmpty) {
+      return null;
+    }
+
+    final DateTime latestDate = DateTime.parse(maps.first['measuredAt']);
+
+    return latestDate;
+  }
+}
+
+
+
+/*
 
   static Future<List<BloodPressure>> getBloodPressuresByDay(int year, int month, int day) async {
     final db = await openDb();
@@ -160,5 +211,4 @@ class BloodPressure {
 
     return {'avgSystolic': avgSystolic, 'avgDiastolic': avgDiastolic, 'avgPulse': avgPulse};
   }
-
-}
+ */

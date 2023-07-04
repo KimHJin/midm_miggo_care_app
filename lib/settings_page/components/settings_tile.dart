@@ -15,6 +15,8 @@ class SettingTile extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
           color: Colors.white,
+          border: Border.all(width: 0.5, color: Colors.grey),
+          /*
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
@@ -22,7 +24,7 @@ class SettingTile extends StatelessWidget {
               blurRadius: 5.0,
               offset: const Offset(4,4),
             )
-          ]
+          ]*/
       ),
       child: Padding(
           padding: const EdgeInsets.all(20.0),
