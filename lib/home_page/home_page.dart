@@ -235,15 +235,29 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(15.0),
                               color: const Color.fromRGBO(38, 175, 79, 0.7),
                           ),
-                          child: const Padding(
-                            padding: const EdgeInsets.all(10.0),
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('알림', style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),),
+                                const Text('알림', style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),),
                                 const SizedBox(height: 10.0,),
-                                Text('월/화/수/목/금 ', style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold),),
-                                Text('오후 7:00', style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold),),
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: alarmList.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      List<String> weekdays = ['', '월', '화', '수', '목', '금', '토', '일'];
+                                      return alarmList.isNotEmpty ? Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text('매주 ${alarmList[index].daysOfWeek.map((number) => weekdays[number]).join('/')}요일', style: const TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold),),
+                                          Text('${alarmList[index].period} ${alarmList[index].hour}:${alarmList[index].minute.toString().padLeft(2, '0')}', style: const TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold),),
+                                          const SizedBox(height: 10.0,),
+                                        ],
+                                      ) : const Text('등록된 알림이 없습니다.', style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold));
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                           ),
