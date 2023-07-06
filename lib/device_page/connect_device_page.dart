@@ -157,7 +157,7 @@ class _DeviceSearchPageState extends State<DeviceSearchPage> {
 
     // 단순히 이름만 출력
     print('${r.device.name}');
-    r.device.connect(autoConnect: true).timeout(const Duration(seconds: 5), onTimeout: () {
+    r.device.connect().timeout(const Duration(seconds: 5), onTimeout: () {
 
     }).then((value) {
       BleDevice.saveDevice(r.device);
