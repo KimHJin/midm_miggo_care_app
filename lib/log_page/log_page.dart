@@ -124,18 +124,34 @@ class _MyLogPageState extends State<MyLogPage> {
                       },
                       calendarBuilders: CalendarBuilders(
                         markerBuilder: (context, date, events) {
+                          int lenght = 0;
                           for(BloodPressure bp in bloodList) {
-                            if(isSameDay(date, bp.measuredAt)) {
-                              return Container(
-                                width: MediaQuery.of(context).size.width * 0.11,
-                                padding: const EdgeInsets.only(bottom: 5),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue.withOpacity(0.2),
-                                  shape: BoxShape.circle,
-                                ),
-                              );
+                            if (isSameDay(date, bp.measuredAt)) {
+                              lenght++;
                             }
                           }
+                          if(lenght == 0) return null;
+                          return Positioned(
+                            bottom: 1,
+                            right: 1,
+                            child: Container(
+                              height: 10.0,
+                              width: 15.0,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Colors.blue.withOpacity(0.6),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  lenght.toString(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 7.0,
+                                  ),
+                                ),
+                              ),
+                            )
+                          );
                         },
                         dowBuilder: (context, day) {
                           switch(day.weekday){
@@ -154,6 +170,17 @@ class _MyLogPageState extends State<MyLogPage> {
                             case 7:
                               return const Center(child: Text('일', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),),);
                           }
+                        },
+                        selectedBuilder: (context, day, focusedDay) {
+                          return Container(
+                            width: 25.0,
+                            height: 25.0,
+                            decoration: const BoxDecoration(
+                              color: Colors.blue,
+                              shape: BoxShape.rectangle,
+                            ),
+                            child: Center(child: Text(focusedDay.day.toString(), style: const TextStyle(color: Colors.white),)),
+                          );
                         }
                       ),
                     ),
@@ -164,11 +191,25 @@ class _MyLogPageState extends State<MyLogPage> {
                     child: ListView.separated(
                       itemCount: selectList.length,
                       itemBuilder: (BuildContext context, int index) {
+                        int sysValue = selectList[index].systolic;
+                        int diaValue = selectList[index].diastolic;
+                        Color bpColor;
+
+                        if(sysValue >= 180 || diaValue >= 110) {
+                          bpColor = const Color.fromRGBO(240, 0, 0, 0.7);
+                        } else if(sysValue >= 160 || diaValue >= 100) {
+                          bpColor = const Color.fromRGBO(255, 128, 0, 0.7);
+                        } else if(sysValue >= 140 || diaValue >= 90) {
+                          bpColor = const Color.fromRGBO(240, 240, 0, 0.7);
+                        } else {
+                          bpColor = Colors.transparent;
+                        }
                         return Card(
                           child: SizedBox(
                             height: 50.0,
                             child: Row(
                              children: [
+                               Container(height: 50.0, width: 5.0,color: bpColor,),
                                const SizedBox(width: 20.0,),
                                Text('${selectList[index].systolic.toString()} / ${selectList[index].diastolic.toString()}', style: const TextStyle(fontSize: 20.0),),
                                const SizedBox(width: 3.0,),
