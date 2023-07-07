@@ -219,7 +219,7 @@ class _MyLogPageState extends State<MyLogPage> {
                                const SizedBox(width: 3.0,),
                                const Text('bpm', style: TextStyle(fontSize: 10.0),),
                                const Spacer(),
-                               Text(DateFormat('hh:mm').format(bloodList[index].measuredAt), style: const TextStyle(fontSize: 12.0),),
+                               Text(DateFormat('HH:mm').format(selectList[index].measuredAt), style: const TextStyle(fontSize: 12.0),),
                                const SizedBox(width: 20.0,),
                              ],
                             ),
@@ -279,7 +279,7 @@ class _MyLogPageState extends State<MyLogPage> {
                         dia: bloodList[index].diastolic.toString(),
                         pulse: bloodList[index].pulse.toString(),
                         date: DateFormat('yy/MM/dd').format(bloodList[index].measuredAt),
-                        time: DateFormat('hh:mm').format(bloodList[index].measuredAt),
+                        time: DateFormat('HH:mm').format(bloodList[index].measuredAt),
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) => const Divider(),
