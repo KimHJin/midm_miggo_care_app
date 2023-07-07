@@ -44,7 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const AlarmPage()),
+                    MaterialPageRoute(builder: (context) => const AlarmPage(id: 2,)),
                   );
                 },
               ),
