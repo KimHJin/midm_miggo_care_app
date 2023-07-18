@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:miggo_care/_BloodPressure/BloodPressure.dart';
 import 'package:miggo_care/settings_page/components/settings_tile.dart';
 import 'package:miggo_care/settings_page/sub_page/alarm.dart';
 
@@ -40,6 +41,41 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 10.0,),
               SettingTile(
+                title: '내 기록 삭제',
+                onPressed: (){
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('기록 삭제'),
+                          content: const Text(
+                            '모든 기록이 영구적으로 제거됩니다.\n'
+                            '삭제 하시겠습니까?'
+                            , style: TextStyle(fontSize: 14.0),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('취소'),
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                await BloodPressure.clearAllData().then((value) {
+                                  Navigator.pop(context);
+                                });
+                              },
+                              child: const Text('삭제', style: TextStyle(color: Colors.red),),
+                            ),
+                          ],
+                        );
+                      }
+                  );
+                },
+              ),
+              const SizedBox(height: 10.0,),
+              SettingTile(
                 title: '알림 설정',
                 onPressed: (){
                   Navigator.push(
@@ -62,7 +98,6 @@ class _SettingsPageState extends State<SettingsPage> {
               SettingTile(
                 title: '미꼬케어 평가',
                 onPressed: () async {
-                  /*
                   final InAppReview inAppReview = InAppReview.instance;
 
                   if (await inAppReview.isAvailable()) {
@@ -70,7 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   } else {
                     // In-App Review가 지원되지 않는 플랫폼 또는 버전일 때 처리할 코드를 추가합니다.
                     // 예: 앱 스토어로 리디렉션하거나 대체 리뷰 요청 방법을 제공합니다.
-                  }*/
+                  }
                 },
               ),
             ],

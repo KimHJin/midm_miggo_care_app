@@ -119,6 +119,12 @@ class BloodPressure {
 
     return latestDate;
   }
+
+  static Future<void> clearAllData() async {
+    final db = await openDb();
+
+    await db.delete('blood_pressure');
+  }
 }
 
 
