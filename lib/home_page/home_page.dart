@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Text('안녕하세요! 사용자님', style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),),
                     SizedBox(height: 10.0,),
-                    Text('미꼬케어의 오신것을 환영합니다.',  style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),),
+                    Text('미꼬케어의 오신 것을 환영합니다.',  style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),),
                   ],
                 ),
               ),
